@@ -20,7 +20,9 @@ class EditorViewController: UIViewController {
     
     // MARK: - ОБЛАСТЬ РЕДАКТИРОВАНИЯ
     var editorOneView = UIView() // первая область
-    let symbolConfig = UIImage.SymbolConfiguration(pointSize: 32, weight: .medium, scale: .large)
+    let symbolConfig = UIImage.SymbolConfiguration(pointSize: 32,
+                                                   weight: .medium,
+                                                   scale: .large)
     var editorTwoView = UIView() // вторая область
     var scrollViewEditor = UIScrollView() // scrollView для editorOneView и editorTwoView
     
@@ -38,24 +40,7 @@ class EditorViewController: UIViewController {
     var brightnessValue: Float = 0.0
     var saturationValue: Float = 1.0
     var noiseValue: Float = 0.5
-//    // VIEWS:
-//    let contrastView = UIView()
-//    let sharpnessView = UIView()
-//    let brightnessView = UIView()
-//    let saturationView = UIView()
-//    let noiseView = UIView()
-//    // LABELS:
-//    let contrastLabel = UILabel()
-//    let sharpnessLabel = UILabel()
-//    let brightnessLabel = UILabel()
-//    let saturationLabel = UILabel()
-//    let noiseLabel = UILabel()
-//    // BUTTONS:
-//    let contrastSlider = UIButton()
-//    let sharpnessButton = UIButton()
-//    let brightnessButton = UIButton()
-//    let saturationButton = UIButton()
-//    let noiseButton = UIButton()
+
     
     let imagePicker = UIImagePickerController()
     
@@ -78,13 +63,20 @@ class EditorViewController: UIViewController {
         makeConstraints()
         targetActions()
     }
+    
     // MARK: - ЗАПРОС НА РАЗРЕШЕНИЕ ИСПОЛЬЗОВАНИЯ ФОТОГРАФИЙ И ОТКРЫТИЕ ГАЛЕРИИ
     private func PhotoRequestAlert() {
-        let alertController = UIAlertController(title: "Выбор режима", message: "Загрузить фото из библиотеки или из сети?", preferredStyle: .alert)
-        let actionLibrary = UIAlertAction(title: "Из библиотеки", style: .default) { (action) in
-            self.present(self.imagePicker, animated: true, completion: nil)
+        let alertController = UIAlertController(title: "Выбор режима",
+                                                message: "Загрузить фото из библиотеки или из сети?",
+                                                preferredStyle: .alert)
+        let actionLibrary = UIAlertAction(title: "Из библиотеки",
+                                          style: .default) { (action) in
+            self.present(self.imagePicker,
+                         animated: true,
+                         completion: nil)
         }
-        let actionURL = UIAlertAction(title: "Из сети", style: .default) { (action) in
+        let actionURL = UIAlertAction(title: "Из сети",
+                                      style: .default) { (action) in
             self.uploadSitePhoto()
         }
         alertController.addAction(actionLibrary)
@@ -106,7 +98,12 @@ class EditorViewController: UIViewController {
         
         imageView.contentMode = .scaleToFill
         imageView.center = scrollView.center
-        imageView.autoresizingMask = [.flexibleTopMargin, .flexibleLeftMargin, .flexibleBottomMargin, .flexibleRightMargin]
+        imageView.autoresizingMask = [
+            .flexibleTopMargin,
+            .flexibleLeftMargin,
+            .flexibleBottomMargin,
+            .flexibleRightMargin
+        ]
     
         editorOneView.backgroundColor = .darkGray
         editorOneView.layer.cornerRadius = 12
@@ -159,7 +156,13 @@ class EditorViewController: UIViewController {
         
         editorOneView.addSubview(scrollViewEditor)
         
-        let buttonsEditor = [cropButton, filtersButton, backChangeButton, forwardButton, infoButton]
+        let buttonsEditor = [
+            cropButton,
+            filtersButton,
+            backChangeButton,
+            forwardButton,
+            infoButton
+        ]
 
         for button in buttonsEditor {
             scrollViewEditor.addSubview(button)
@@ -251,8 +254,12 @@ class EditorViewController: UIViewController {
     }
     // MARK: - УПРАВЛЕНИЕ КНОПКАМИ "ФИЛЬТРЫ И ИНФО"
     private func targetActions() {
-        filtersButton.addTarget(self, action: #selector(filtresAlertAction), for: .touchUpInside)
-        infoButton.addTarget(self, action: #selector(infoAction), for: .touchUpInside)
+        filtersButton.addTarget(self,
+                                action: #selector(filtresAlertAction),
+                                for: .touchUpInside)
+        infoButton.addTarget(self,
+                             action: #selector(infoAction),
+                             for: .touchUpInside)
     }
     // MARK: - РЕАЛИЗАЦИЯ КНОПКИ "ФИЛЬТРЫ"
     @objc func filtresAlertAction() {
@@ -260,54 +267,73 @@ class EditorViewController: UIViewController {
         
         // потом назвать по другому
         
-        let filterOne = UIAlertAction(title: "Сепия", style: .default)
+        let filterOne = UIAlertAction(title: "Сепия",
+                                      style: .default)
         { [self]
             UIAlertAction in
             applyFilter(filter: ImageFilterManager.applySepiaFilter)
         }
         
-        let filterTwo = UIAlertAction(title: "Хром", style: .default)
+        let filterTwo = UIAlertAction(title: "Хром",
+                                      style: .default)
         { [self]
             UIAlertAction in
             applyFilter(filter: ImageFilterManager.applyChromeFilter)
         }
-        let filterThree = UIAlertAction(title: "Монохром", style: .default)
+        let filterThree = UIAlertAction(title: "Монохром",
+                                        style: .default)
         { [self]
             UIAlertAction in
             applyFilter(filter: ImageFilterManager.applyMonoFilter)
         }
-        let filterFour = UIAlertAction(title: "Нуар", style: .default)
+        let filterFour = UIAlertAction(title: "Нуар",
+                                       style: .default)
         { [self]
             UIAlertAction in
             applyFilter(filter: ImageFilterManager.applyNoirFilter)
         }
-        let filterFive = UIAlertAction(title: "Мгновение", style: .default)
+        let filterFive = UIAlertAction(title: "Мгновение",
+                                       style: .default)
         { [self]
             UIAlertAction in
             applyFilter(filter: ImageFilterManager.applyInstantFilter)
         }
         
-        let filterSix = UIAlertAction(title: "Перенос эффекта", style: .default)
+        let filterSix = UIAlertAction(title: "Перенос эффекта",
+                                      style: .default)
         { [self]
             UIAlertAction in
             applyFilter(filter: ImageFilterManager.applyTransferFilter)
         }
         
-        let filterSeven = UIAlertAction(title: "Тональный", style: .default)
+        let filterSeven = UIAlertAction(title: "Тональный",
+                                        style: .default)
         { [self]
             UIAlertAction in
             applyFilter(filter: ImageFilterManager.applyTonalFilter)
         }
         
-        let noneFilter = UIAlertAction(title: "Без фильтра", style: .default)
+        let noneFilter = UIAlertAction(title: "Без фильтра",
+                                       style: .default)
         { [self]
             UIAlertAction in
             applyFilter(filter: ImageFilterManager.applyNoFilter)
         }
         
-        let cancelAction = UIAlertAction(title: "Назад", style: .cancel)
+        let cancelAction = UIAlertAction(title: "Назад",
+                                         style: .cancel)
         
-        let actions = [filterOne,filterTwo,filterThree,filterFour,filterFive,filterSix,filterSeven,cancelAction,noneFilter]
+        let actions = [
+            filterOne,
+            filterTwo,
+            filterThree,
+            filterFour,
+            filterFive,
+            filterSix,
+            filterSeven,
+            cancelAction,
+            noneFilter
+        ]
         
         for action in actions {
             filtresAlert.addAction(action)
@@ -338,8 +364,14 @@ extension EditorViewController: UINavigationControllerDelegate {
     // MARK: - настройки NavigationBar
     private func setupNavBar() {
         navigationItem.hidesBackButton = true
-        let backButton = UIBarButtonItem(title: "МЕНЮ", style: .done, target: self, action: #selector(backButtonTapped))
-        let saveButton = UIBarButtonItem(title: "CОХРАНИТЬ", style: .done, target: self, action: #selector(saveAction))
+        let backButton = UIBarButtonItem(title: "МЕНЮ",
+                                         style: .done,
+                                         target: self,
+                                         action: #selector(backButtonTapped))
+        let saveButton = UIBarButtonItem(title: "CОХРАНИТЬ",
+                                         style: .done,
+                                         target: self,
+                                         action: #selector(saveAction))
         
         saveButton.tintColor = .darkGray
         backButton.tintColor = .systemGray
@@ -349,11 +381,16 @@ extension EditorViewController: UINavigationControllerDelegate {
     }
     // MARK: - РЕАЛИЗАЦИЯ КНОПКИ "НАЗАД"
     @objc func backButtonTapped() {
-        let alertController = UIAlertController(title: "Внимание", message: "Вы уверены, что хотите вернуться на начальный экран? Все действия не будут сохранены.", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Внимание",
+                                                message: "Вы уверены, что хотите вернуться на начальный экран? Все действия не будут сохранены.",
+                                                preferredStyle: .alert)
            
-        let cancelAction = UIAlertAction(title: "Отмена", style: .cancel, handler: nil)
+        let cancelAction = UIAlertAction(title: "Отмена",
+                                         style: .cancel,
+                                         handler: nil)
            
-        let backAction = UIAlertAction(title: "Вернуться", style: .default) { (action) in
+        let backAction = UIAlertAction(title: "Вернуться",
+                                       style: .default) { (action) in
             self.navigationController?.popViewController(animated: true)
         }
         
@@ -370,19 +407,30 @@ extension EditorViewController: UINavigationControllerDelegate {
             return
         }
         // Сохраняем отфильтрованное изображение в фотоальбоме
-        UIImageWriteToSavedPhotosAlbum(filteredImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        UIImageWriteToSavedPhotosAlbum(filteredImage,
+                                       self,
+                                       #selector(image(_:didFinishSavingWithError:contextInfo:)),
+                                       nil)
     }
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeMutableRawPointer?) {
         if let error = error {
             // Если произошла ошибка при сохранении изображения
             print("Ошибка сохранения изображения: \(error.localizedDescription)")
-            let alert = UIAlertController(title: "Ошибка", message: "Не удалось сохранить изображение.", preferredStyle: .actionSheet)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            let alert = UIAlertController(title: "Ошибка",
+                                          message: "Не удалось сохранить изображение.",
+                                          preferredStyle: .actionSheet)
+            alert.addAction(UIAlertAction(title: "OK",
+                                          style: .default,
+                                          handler: nil))
             present(alert, animated: true, completion: nil)
         } else {
             // Оповещаем пользователя об успешном сохранении с помощью UIAlertController
-            let alert = UIAlertController(title: "Успешно", message: "Изображение успешно сохранено в вашу галерею.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            let alert = UIAlertController(title: "Успешно",
+                                          message: "Изображение успешно сохранено в вашу галерею.",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK",
+                                          style: .default,
+                                          handler: nil))
             present(alert, animated: true, completion: nil)
         }
     }
@@ -448,7 +496,12 @@ extension EditorViewController {
     }
     private func createViews() -> [UIView] {
         var views: [UIView] = []
-        let textLabel = ["контрастность", "резкость", "яркость", "насыщенность", "шум"]
+        let textLabel = ["контрастность",
+                         "резкость",
+                         "яркость",
+                         "насыщенность",
+                         "шум"
+        ]
         
         for index in 0..<5 {
             let view = UIView()
@@ -480,20 +533,40 @@ extension EditorViewController {
             
             switch index {
             case 0: // Контрастность
-                slider = createSlider(minValue: 0.0, maxValue: 2.0, initialValue: 1.0)
-                slider.addTarget(self, action: #selector(contrastSliderValueChanged(_:)), for: .valueChanged)
+                slider = createSlider(minValue: 0.0,
+                                      maxValue: 2.0,
+                                      initialValue: 1.0)
+                slider.addTarget(self,
+                                 action: #selector(contrastSliderValueChanged(_:)),
+                                 for: .valueChanged)
             case 1: // Резкость
-                slider = createSlider(minValue: -2.0, maxValue: 2.0, initialValue: 0.0)
-                slider.addTarget(self, action: #selector(sharpnessSliderValueChanged(_:)), for: .valueChanged)
+                slider = createSlider(minValue: -2.0,
+                                      maxValue: 2.0,
+                                      initialValue: 0.0)
+                slider.addTarget(self,
+                                 action: #selector(sharpnessSliderValueChanged(_:)),
+                                 for: .valueChanged)
             case 2: // Яркость
-                slider = createSlider(minValue: -1.0, maxValue: 1.0, initialValue: 0.0)
-                slider.addTarget(self, action: #selector(brightnessSliderValueChanged(_:)), for: .valueChanged)
+                slider = createSlider(minValue: -1.0,
+                                      maxValue: 1.0,
+                                      initialValue: 0.0)
+                slider.addTarget(self,
+                                 action: #selector(brightnessSliderValueChanged(_:)),
+                                 for: .valueChanged)
             case 3: // Насыщенность
-                slider = createSlider(minValue: 0.0, maxValue: 2.0, initialValue: 1.0)
-                slider.addTarget(self, action: #selector(saturationSliderValueChanged(_:)), for: .valueChanged)
+                slider = createSlider(minValue: 0.0,
+                                      maxValue: 2.0,
+                                      initialValue: 1.0)
+                slider.addTarget(self,
+                                 action: #selector(saturationSliderValueChanged(_:)),
+                                 for: .valueChanged)
             case 4: // Шум
-                slider = createSlider(minValue: 0.0, maxValue: 1.0, initialValue: 0.5)
-                slider.addTarget(self, action: #selector(noiseSliderValueChanged(_:)), for: .valueChanged)
+                slider = createSlider(minValue: 0.0,
+                                      maxValue: 1.0,
+                                      initialValue: 0.5)
+                slider.addTarget(self,
+                                 action: #selector(noiseSliderValueChanged(_:)),
+                                 for: .valueChanged)
                 
             default:
                 continue
@@ -512,6 +585,8 @@ extension EditorViewController {
     @objc private func contrastSliderValueChanged(_ sender: UISlider) {
         contrastValue = sender.value
         applyFilters()
+        
+        
     }
     
     @objc private func sharpnessSliderValueChanged(_ sender: UISlider) {
@@ -541,27 +616,34 @@ extension EditorViewController {
         
         // Применяем каждый фильтр независимо от остальных
         if contrastValue != 1.0 {
-            filteredImage = ImageFilterManager.applyContrastFilter(to: filteredImage, contrast: contrastValue) ?? filteredImage
+            filteredImage = ImageFilterManager.applyContrastFilter(to: filteredImage,
+                                                                   contrast: contrastValue) ?? filteredImage
         }
         
         if sharpnessValue != 0.0 {
-            filteredImage = ImageFilterManager.applySharpnessFilter(to: filteredImage, sharpness: sharpnessValue) ?? filteredImage
+            filteredImage = ImageFilterManager.applySharpnessFilter(to: filteredImage,
+                                                                    sharpness: sharpnessValue) ?? filteredImage
         }
         
         if brightnessValue != 0.0 {
-            filteredImage = ImageFilterManager.applyBrightnessFilter(to: filteredImage, brightness: brightnessValue) ?? filteredImage
+            filteredImage = ImageFilterManager.applyBrightnessFilter(to: filteredImage,
+                                                                     brightness: brightnessValue) ?? filteredImage
         }
         
         if saturationValue != 1.0 {
-            filteredImage = ImageFilterManager.applySaturationFilter(to: filteredImage, saturation: saturationValue) ?? filteredImage
+            filteredImage = ImageFilterManager.applySaturationFilter(to: filteredImage,
+                                                                     saturation: saturationValue) ?? filteredImage
         }
         
         if noiseValue != 0.5 {
-            filteredImage = ImageFilterManager.applyNoiseFilter(to: filteredImage, noise: noiseValue) ?? filteredImage
+            filteredImage = ImageFilterManager.applyNoiseFilter(to: filteredImage,
+                                                                noise: noiseValue) ?? filteredImage
         }
         
         // Отображаем отфильтрованное изображение
+        
         imageView.image = filteredImage
+        
     }
     
 }
